@@ -44,21 +44,22 @@ aliases:
 jobs:
     build:
         executor: app-executor
-            steps:
-                - checkout
-                - *show-current-branch-name
-                - *restore-cache
-                - *install-dependencies
-                - *save-cache
+        steps:
+            - checkout
+            - *show-current-branch-name
+            - *restore-cache
+            - *install-dependencies
+            - *save-cache
+
     linting:
         executor: app-executor
-            steps:
-                - checkout
-                - *show-current-branch-name
-                - *restore-cache
-                - run:
-                    name: Run linting
-                    command: npm run lint
+        steps:
+            - checkout
+            - *show-current-branch-name
+            - *restore-cache
+            - run:
+                  name: Run linting
+                  command: npm run lint
 
     deploy-to-aws-s3:
         executor: app-executor
@@ -109,17 +110,16 @@ workflows:
                   filters:
                       branches:
                           only:
-                              - development
+                              - develop
                               - staging
                               - master
-
             - deploy-to-aws-s3:
                   requires:
                       - linting
                   filters:
                       branches:
                           only:
-                              - development
+                              - develop
                               - staging
                               - master
             - deploy-to-aws-cloudfront:
@@ -128,6 +128,6 @@ workflows:
                   filters:
                       branches:
                           only:
-                              - development
+                              - develop
                               - staging
                               - master
