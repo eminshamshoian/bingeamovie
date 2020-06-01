@@ -26,7 +26,6 @@
         "space-before-function-paren": [0, { "anonymous": "always", "named": "always" }],
         "camelcase": 0,
         "no-return-assign": 0,
-        "indent": ["error", 4],
-        "prefer-template": 0
+        "indent": ["error", 4]
     }
 }
