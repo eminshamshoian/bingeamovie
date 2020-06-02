@@ -66,6 +66,7 @@ jobs:
             - run:
                   name: Run linting
                   command: npm run lint
+
     prettier:
         executor: app-executor
         steps:
@@ -123,6 +124,7 @@ jobs:
                   webhook: $SLACK_WEBHOOK
             - slack/status:
                   webhook: $SLACK_WEBHOOK
+
 workflows:
     build_and_deploy:
         jobs:
@@ -148,7 +150,6 @@ workflows:
             - deploy-to-aws-s3:
                   requires:
                       - prettier
-                      - linting
                   filters:
                       branches:
                           only:
@@ -169,7 +170,7 @@ workflows:
                       - deploy-to-aws-cloudfront
                   filters:
                       branches:
-                      only:
-                          - development
-                          - staging
-                          - master
+                          only:
+                              - development
+                              - staging
+                              - master
