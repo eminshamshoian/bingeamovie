@@ -152,3 +152,10 @@
         }
     }
 }
+
+@media screen and (min-width: 1400px) {
+    .slider-image {
+        height: 1000px;
+        background-position: top;
+    }
+}
