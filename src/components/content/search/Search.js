@@ -2,6 +2,7 @@ import React, { useState, useEffect, Fragment } from 'react';
 import { connect } from 'react-redux';
 import { v4 as uuidv4 } from 'uuid';
 import PropTypes from 'prop-types';
+import { Link } from 'react-router-dom';
 
 import '../grid/Grid.scss';
 import './Search.scss';
@@ -9,13 +10,18 @@ import Rating from '../rating/Rating';
 import { IMAGE_URL } from '../../../services/movies.service';
 import LazyImage from '../../lazy-load/LazyLoad';
 
-const SearchResult = (props) => {
+const Search = (props) => {
     const { searchResult, searchQuery } = props;
     const [movieData, setMovieData] = useState([]);
 
     useEffect(() => {
         setMovieData(searchResult);
     }, [searchResult]);
+
+    const formatMovieTitle = (title) => {
+        const titleStr = title.toLowerCase();
+        return titleStr.replace(/ /g, '-');
+    };
 
     return (
         <div className="searchKeyword">
@@ -28,7 +34,9 @@ const SearchResult = (props) => {
                         {data.poster_path && (
                             <LazyImage className="grid-cell" src={`${IMAGE_URL}${data.poster_path}`} alt="placeholder">
                                 <div className="grid-read-more">
-                                    <button className="grid-cell-button">Read More</button>
+                                    <button className="grid-cell-button">
+                                        <Link to={`/${data.id}/${formatMovieTitle(data.title)}/details`}>Read More</Link>
+                                    </button>
                                 </div>
                                 <div className="grid-detail">
                                     <span className="grid-detail-title">{data.title}</span>
@@ -47,7 +55,7 @@ const SearchResult = (props) => {
     );
 };
 
-SearchResult.propTypes = {
+Search.propTypes = {
     searchResult: PropTypes.array.isRequired,
     searchQuery: PropTypes.string.isRequired
 };
@@ -57,4 +65,4 @@ const mapStateToProps = (state) => ({
     searchQuery: state.movies.searchQuery
 });
 
-export default connect(mapStateToProps, {})(SearchResult);
+export default connect(mapStateToProps, {})(Search);
