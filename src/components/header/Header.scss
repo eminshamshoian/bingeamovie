@@ -1,7 +1,7 @@
 .header-nav-wrapper {
     width: 100%;
     top: 0;
-    background-color: #1e2133;
+    background-color: #fff;
     position: sticky;
     z-index: 20;
 }
@@ -38,7 +38,6 @@
     margin-right: 25px;
 
     .header-nav-item {
-        cursor: pointer;
         .header-list-icon {
             padding-right: 5px;
         }
